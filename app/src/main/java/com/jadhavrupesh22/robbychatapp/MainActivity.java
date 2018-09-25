@@ -67,5 +67,29 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    public void Logout(MenuItem item) {
+        FirebaseAuth.getInstance().signOut();
+        sendToStart();
+
+    }
+
+    public void alu(MenuItem item) {
+        Intent userIntent=new Intent(MainActivity.this,UsersActivity.class);
+        startActivity(userIntent);
+    }
+
+    public void as(MenuItem item) {
+        Intent settingIntent=new Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(settingIntent);
+    }
+
 
 }
