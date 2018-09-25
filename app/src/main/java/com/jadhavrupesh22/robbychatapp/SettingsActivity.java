@@ -158,7 +158,6 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
                                     }
