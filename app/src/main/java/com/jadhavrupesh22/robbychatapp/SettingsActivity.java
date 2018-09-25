@@ -162,7 +162,6 @@ public class SettingsActivity extends AppCompatActivity {
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
                                     }
-
                                 }
                             });
 
