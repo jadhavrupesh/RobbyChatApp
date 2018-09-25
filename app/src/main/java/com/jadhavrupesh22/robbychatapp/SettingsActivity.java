@@ -145,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 String current_user_id = mCurrentuser.getUid();
 
-                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
+                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".png");
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
