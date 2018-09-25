@@ -7,7 +7,7 @@
     tools:context=".SettingsActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/settings_images"
+        android:id="@+id/settings_image"
         android:layout_width="200dp"
 
         android:layout_height="200dp"

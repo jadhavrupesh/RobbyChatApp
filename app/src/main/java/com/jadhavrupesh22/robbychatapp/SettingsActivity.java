@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
 
-        mDisplayImage = (CircleImageView) findViewById(R.id.settings_images);
+        mDisplayImage = (CircleImageView) findViewById(R.id.settings_image);
         mName = (TextView) findViewById(R.id.settings_name);
         mStatus = (TextView) findViewById(R.id.settings_status);
 
@@ -74,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
+//                String image = dataSnapshot.child("image").getValue().toString();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                 mName.setText(name);
@@ -93,8 +94,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void cs(View view) {
         String statusValue = mStatus.getText().toString();
-
-
         Intent status_intent = new Intent(SettingsActivity.this, StatusActivity.class);
         status_intent.putExtra("status_value", statusValue);
         startActivity(status_intent);
