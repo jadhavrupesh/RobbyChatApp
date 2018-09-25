@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +24,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -57,14 +59,15 @@ public class SettingsActivity extends AppCompatActivity {
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
-
         mCurrentuser = FirebaseAuth.getInstance().getCurrentUser();
 
         String current_uid = mCurrentuser.getUid();
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
 
+
         mUserDatabase.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -98,8 +101,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+
     public void ci(View view) {
-//
+
 //        CropImage.activity()
 //                .setGuidelines(CropImageView.Guidelines.ON)
 //                .start(this);
