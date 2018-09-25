@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,11 +24,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.util.Random;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -145,7 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 String current_user_id = mCurrentuser.getUid();
 
-                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".png");
+                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
