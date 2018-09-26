@@ -82,6 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 Picasso.get().load(image).into(mDisplayImage);
 
+
             }
 
             @Override
