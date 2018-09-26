@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,9 +25,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -80,6 +76,8 @@ public class SettingsActivity extends AppCompatActivity {
                 mName.setText(name);
                 mStatus.setText(status);
 
+
+                //set Image
                 Picasso.get().load(image).into(mDisplayImage);
 
             }
@@ -134,7 +132,8 @@ public class SettingsActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
-                mProgressDialog = new ProgressDialog(SettingsActivity.this);
+
+                mProgressDialog=new ProgressDialog(SettingsActivity.this);
                 mProgressDialog.setTitle("Uploading_Image");
                 mProgressDialog.setMessage("Wait while uploading image");
                 mProgressDialog.setCanceledOnTouchOutside(false);
@@ -144,19 +143,19 @@ public class SettingsActivity extends AppCompatActivity {
 
                 String current_user_id = mCurrentuser.getUid();
 
-                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
+                final StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
 
                             Toast.makeText(SettingsActivity.this, "Working...", Toast.LENGTH_LONG).show();
-                            String download_url = task.getResult().getStorage().getDownloadUrl().toString();
-                            //String download_url=task.getReference().getMetadata().getResult().getDownloadUrl().toString();
+
+                            String download_url=filepath.getDownloadUrl().toString();
                             mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
+                                    if (task.isSuccessful()){
 
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
