@@ -1,5 +1,6 @@
 package com.jadhavrupesh22.robbychatapp;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,10 +26,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -52,12 +55,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
         mDisplayImage = (CircleImageView) findViewById(R.id.settings_image);
         mName = (TextView) findViewById(R.id.settings_name);
         mStatus = (TextView) findViewById(R.id.settings_status);
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
+
 
         mCurrentuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -65,16 +68,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
 
-
         mUserDatabase.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 String name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
-//                String image = dataSnapshot.child("image").getValue().toString();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                 mName.setText(name);
@@ -94,15 +94,16 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void cs(View view) {
         String statusValue = mStatus.getText().toString();
+
+
         Intent status_intent = new Intent(SettingsActivity.this, StatusActivity.class);
         status_intent.putExtra("status_value", statusValue);
         startActivity(status_intent);
 
     }
 
-
     public void ci(View view) {
-
+//
 //        CropImage.activity()
 //                .setGuidelines(CropImageView.Guidelines.ON)
 //                .start(this);
@@ -111,6 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
         gallaryIntent.setType("images/*");
         gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(gallaryIntent, "Select Image"), GALLARY_PICK);
+
     }
 
     @Override
@@ -127,11 +129,11 @@ public class SettingsActivity extends AppCompatActivity {
             // Toast.makeText(SettingsActivity.this,imageUrl,Toast.LENGTH_LONG).show();
         }
 
-
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
+
                 mProgressDialog = new ProgressDialog(SettingsActivity.this);
                 mProgressDialog.setTitle("Uploading_Image");
                 mProgressDialog.setMessage("Wait while uploading image");
@@ -147,15 +149,14 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SettingsActivity.this, "Working...", Toast.LENGTH_LONG).show();
 
-                            String download_url=task.getResult().getMetadata().getReference().getDownloadUrl()
-                                    .toString();
+                            Toast.makeText(SettingsActivity.this, "Working...", Toast.LENGTH_LONG).show();
+                            String download_url = task.getResult().getStorage().getDownloadUrl().toString();
+                            //String download_url=task.getReference().getMetadata().getResult().getDownloadUrl().toString();
                             mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
@@ -166,25 +167,20 @@ public class SettingsActivity extends AppCompatActivity {
                             });
 
 
-
                         } else {
 
                             Toast.makeText(SettingsActivity.this, "Error inUploading...", Toast.LENGTH_LONG).show();
                             mProgressDialog.dismiss();
                         }
 
-
                     }
                 });
+
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
-
-
         }
-
-
     }
 
 }
