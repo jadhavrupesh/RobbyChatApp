@@ -111,7 +111,6 @@ public class SettingsActivity extends AppCompatActivity {
         gallaryIntent.setType("images/*");
         gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(gallaryIntent, "Select Image"), GALLARY_PICK);
-
     }
 
     @Override
