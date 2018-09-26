@@ -82,7 +82,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                 Picasso.get().load(image).into(mDisplayImage);
 
-
             }
 
             @Override
@@ -128,12 +127,11 @@ public class SettingsActivity extends AppCompatActivity {
             // Toast.makeText(SettingsActivity.this,imageUrl,Toast.LENGTH_LONG).show();
         }
 
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-
-
                 mProgressDialog = new ProgressDialog(SettingsActivity.this);
                 mProgressDialog.setTitle("Uploading_Image");
                 mProgressDialog.setMessage("Wait while uploading image");
@@ -149,19 +147,24 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
-
                             Toast.makeText(SettingsActivity.this, "Working...", Toast.LENGTH_LONG).show();
 
-                            String download_url = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
+                            String download_url=task.getResult().getMetadata().getReference().getDownloadUrl()
+                                    .toString();
                             mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
+
+                                    if (task.isSuccessful()){
+
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
+
                                     }
+
                                 }
                             });
+
 
 
                         } else {
@@ -170,14 +173,18 @@ public class SettingsActivity extends AppCompatActivity {
                             mProgressDialog.dismiss();
                         }
 
+
                     }
                 });
-
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+
+
         }
+
+
     }
 
 }
