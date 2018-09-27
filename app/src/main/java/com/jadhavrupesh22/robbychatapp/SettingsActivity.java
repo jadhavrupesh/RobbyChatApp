@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingsActivity extends AppCompatActivity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    DataSnapshot dataSnapshot;
 
 
 
@@ -87,6 +89,9 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mName.setText(name);
                 mStatus.setText(status);
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+                Glide.with(SettingsActivity.this).load(storageReference).into(mDisplayImage);
             }
 
 
@@ -142,10 +147,18 @@ public class SettingsActivity extends AppCompatActivity {
                Uri resultUri = result.getUri();
                 String current_user_id=mCurrentUser.getUid();
                 StorageReference filepath=mImageStorage.child("profile_images").child(current_user_id+".jpg");
+
+
+
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
+                            Uri url= Uri.parse(task.getResult().getMetadata().getReference().getDownloadUrl().toString());
+                            String download_url=url.toString();
+
+                            Log.d("hello","this is download link........................................"+download_url);
+                            System.out.println(download_url);
                             mProgressDialog.dismiss();
                         }
                         else {
