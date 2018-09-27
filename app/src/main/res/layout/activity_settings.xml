@@ -9,7 +9,6 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/settings_image"
         android:layout_width="200dp"
-
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -24,7 +23,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="284dp"
         android:text="@string/display_name"
-
         android:textSize="24sp" />
 
     <TextView
