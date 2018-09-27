@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private SectionPagerAdapter mSectionsPagerAdapter;
+    private SectionPagerAdapter mSectionsPagerAdapter;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         //Tabs
         mViewPager=(ViewPager)findViewById(R.id.main_tabPager );
 
-//        mSectionsPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
-//        mTablayout=(TabLayout)findViewById(R.id.main_tabs);
-//        mTablayout.setupWithViewPager(mViewPager);
+        mSectionsPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mTablayout=(TabLayout)findViewById(R.id.main_tabs);
+        mTablayout.setupWithViewPager(mViewPager);
     }
 
     @Override
