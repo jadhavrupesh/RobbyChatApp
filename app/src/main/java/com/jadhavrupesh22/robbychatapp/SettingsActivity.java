@@ -46,7 +46,6 @@ public class SettingsActivity extends AppCompatActivity {
     DataSnapshot dataSnapshot;
 
 
-
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
     private StorageReference mStorageRef;
@@ -89,9 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mName.setText(name);
                 mStatus.setText(status);
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
-                Glide.with(SettingsActivity.this).load(storageReference).into(mDisplayImage);
+                Picasso.get().load(image).into(mDisplayImage);
             }
 
 
@@ -101,7 +98,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 
@@ -121,13 +117,14 @@ public class SettingsActivity extends AppCompatActivity {
     //Change Profile Image
     public void ci(View view) {
         CropImage.activity()
-                .setAspectRatio(1,1)
+                .setAspectRatio(1, 1)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setBorderLineColor(Color.rgb(57, 76, 168))
                 .setGuidelinesColor(Color.WHITE)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,7 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
-                mProgressDialog=new ProgressDialog(SettingsActivity.this);
+                mProgressDialog = new ProgressDialog(SettingsActivity.this);
                 mProgressDialog.setTitle("Uploading Image");
                 mProgressDialog.setMessage("Please wite while uploading");
                 mProgressDialog.setCanceledOnTouchOutside(false);
@@ -144,37 +141,35 @@ public class SettingsActivity extends AppCompatActivity {
 
 
                 //image Url
-               Uri resultUri = result.getUri();
-                String current_user_id=mCurrentUser.getUid();
-                StorageReference filepath=mImageStorage.child("profile_images").child(current_user_id+".jpg");
-
-
-
+                Uri resultUri = result.getUri();
+                final String current_user_id = mCurrentUser.getUid();
+                final StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()){
-                            Uri url= Uri.parse(task.getResult().getMetadata().getReference().getDownloadUrl().toString());
-                            String download_url=url.toString();
+                        if (task.isSuccessful()) {
+                            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    mProgressDialog.dismiss();
+                                    String download_url = uri.toString();
+                                    mUserDatabase.child("image").setValue(download_url);
+                                }
+                            });
 
-                            Log.d("hello","this is download link........................................"+download_url);
-                            System.out.println(download_url);
-                            mProgressDialog.dismiss();
-                        }
-                        else {
-                            Toast.makeText(SettingsActivity.this,"Error in uploading",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(SettingsActivity.this, "Error in uploading", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
                 mDisplayImage.setImageURI(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Toast.makeText(SettingsActivity.this,""+error,Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "" + error, Toast.LENGTH_LONG).show();
             }
         }
 
     }
-
 
 
 }
