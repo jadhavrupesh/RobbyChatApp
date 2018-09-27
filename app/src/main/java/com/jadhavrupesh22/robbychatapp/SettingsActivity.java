@@ -81,7 +81,6 @@ public class SettingsActivity extends AppCompatActivity {
                 //Glide.with(SettingsActivity.this).load(image).into(mDisplayImage);
 
 
-
                 //set Image
                 //Picasso.get().load(image).into(mDisplayImage);
 
@@ -138,7 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
 
-                mProgressDialog=new ProgressDialog(SettingsActivity.this);
+                mProgressDialog = new ProgressDialog(SettingsActivity.this);
                 mProgressDialog.setTitle("Uploading_Image");
                 mProgressDialog.setMessage("Wait while uploading image");
                 mProgressDialog.setCanceledOnTouchOutside(false);
@@ -156,34 +155,28 @@ public class SettingsActivity extends AppCompatActivity {
 
                             Toast.makeText(SettingsActivity.this, "Working...", Toast.LENGTH_LONG).show();
 
-                            String download_url=task.getResult().getStorage().getDownloadUrl().toString();
+                            String download_url = task.getResult().getStorage().getDownloadUrl().toString();
                             mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         Toast.makeText(SettingsActivity.this, "Added Successfully..", Toast.LENGTH_LONG).show();
                                         mProgressDialog.dismiss();
-
                                     }
-
                                 }
                             });
-
 
                         } else {
 
                             Toast.makeText(SettingsActivity.this, "Error inUploading...", Toast.LENGTH_LONG).show();
                             mProgressDialog.dismiss();
                         }
-
                     }
                 });
 
-
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-
             }
         }
     }
