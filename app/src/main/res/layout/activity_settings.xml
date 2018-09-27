@@ -24,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="284dp"
         android:text="@string/display_name"
+        android:textColor="#fff"
         android:textSize="24sp" />
 
     <TextView
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:textColor="#fff"
         android:layout_marginBottom="302dp"
         android:text="@string/hii_there_i_m_using_robby_chat_app"
         android:textSize="18sp" />
@@ -46,6 +48,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:onClick="ci"
         android:text="@string/change_image"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <Button
@@ -56,8 +59,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="99dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="@string/change_status"
         android:onClick="cs"
+        android:text="@string/change_status"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
