@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="284dp"
         android:text="@string/display_name"
-        android:textColor="#fff"
+
         android:textSize="24sp" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
+
         android:layout_marginBottom="302dp"
         android:text="@string/hii_there_i_m_using_robby_chat_app"
         android:textSize="18sp" />

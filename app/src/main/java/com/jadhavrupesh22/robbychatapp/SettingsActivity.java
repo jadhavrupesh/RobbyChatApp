@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
                 //set Image
-                //Picasso.get().load(image).into(mDisplayImage);
+                Picasso.get().load(image).into(mDisplayImage);
 
             }
 
