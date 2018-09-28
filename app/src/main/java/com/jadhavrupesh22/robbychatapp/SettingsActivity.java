@@ -51,6 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private static final int GALLERY_PICK = 1;
 
+    private android.support.v7.widget.Toolbar mToolbar;
+
     //Android Layout
     private CircleImageView mDisplayImage;
     private TextView mName;
@@ -71,6 +73,13 @@ public class SettingsActivity extends AppCompatActivity {
         mName = (TextView) findViewById(R.id.settings_name);
         mStatus = (TextView) findViewById(R.id.settings_status);
         mImageStorage = FirebaseStorage.getInstance().getReference();
+
+        //Toolbar
+        mToolbar=(android.support.v7.widget.Toolbar)findViewById(R.id.setting_app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Setting");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
@@ -108,6 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent statusIntent = new Intent(SettingsActivity.this, StatusActivity.class);
         statusIntent.putExtra("status_value", status_value);
         startActivity(statusIntent);
+        finish();
     }
 
 
@@ -154,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     mProgressDialog.dismiss();
                                     String download_url = uri.toString();
                                     mUserDatabase.child("image").setValue(download_url);
+                                    Toast.makeText(SettingsActivity.this,"Image added Successfully....",Toast.LENGTH_SHORT).show();
                                 }
                             });
 

@@ -2,6 +2,7 @@ package com.jadhavrupesh22.robbychatapp;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StatusActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
@@ -67,6 +71,15 @@ public class StatusActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     mProgress.dismiss();
+
+                    //Timer
+                    new Timer().schedule(new TimerTask() {
+                        public void run() {
+                            Intent settingIntent = new Intent(StatusActivity.this, SettingsActivity.class);
+                            startActivity(settingIntent);
+                            finish();
+                        }
+                    }, 500);
                 } else {
                     Toast.makeText(StatusActivity.this, "something wrong", Toast.LENGTH_LONG).show();
 
