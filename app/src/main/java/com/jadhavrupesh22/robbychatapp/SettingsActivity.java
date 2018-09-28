@@ -121,9 +121,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-
-
-
     //Change Profile Image
     public void ci(View view) {
         CropImage.activity()
