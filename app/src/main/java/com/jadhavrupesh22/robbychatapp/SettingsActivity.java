@@ -74,6 +74,10 @@ public class SettingsActivity extends AppCompatActivity {
         mStatus = (TextView) findViewById(R.id.settings_status);
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
+
+
+
+
         //Toolbar
         mToolbar=(android.support.v7.widget.Toolbar)findViewById(R.id.setting_app_bar);
         setSupportActionBar(mToolbar);

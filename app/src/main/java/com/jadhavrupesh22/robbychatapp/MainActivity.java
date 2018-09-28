@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTablayout=(TabLayout)findViewById(R.id.main_tabs);
         mTablayout.setupWithViewPager(mViewPager);
+
+
 
 
     }
