@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".UsersActivity">
 
-    <include
-        android:id="@+id/users_appBar"
-        layout="@layout/app_bar_layout" />
+
+    <include layout="@layout/app_bar_layout" android:id="@+id/users_appBas" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/users_list"
         android:layout_width="match_parent"
-        android:layout_height="511dp"
+        android:layout_height="604dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="55dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>
