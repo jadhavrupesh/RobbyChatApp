@@ -101,10 +101,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mName.setText(name);
                 mStatus.setText(status);
-                Picasso.get().load(image).into(mDisplayImage);
+                if(!image.equals("default")){
+                    Picasso.get().load(image).placeholder(R.drawable.pp).into(mDisplayImage);
+                }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -175,6 +175,11 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 });
                 mDisplayImage.setImageURI(resultUri);
+
+                //image Url Close
+
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Toast.makeText(SettingsActivity.this, "" + error, Toast.LENGTH_LONG).show();
