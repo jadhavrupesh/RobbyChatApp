@@ -112,9 +112,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-
-
-
     //Move To Status Activity and set Status
     public void cs(View view) {
         String status_value = mStatus.getText().toString();
@@ -159,6 +156,9 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
+
+
+
                             filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {

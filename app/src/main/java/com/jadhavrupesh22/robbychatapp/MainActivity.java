@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+s
 public class MainActivity extends AppCompatActivity {
 
     private SectionPagerAdapter mSectionsPagerAdapter;
