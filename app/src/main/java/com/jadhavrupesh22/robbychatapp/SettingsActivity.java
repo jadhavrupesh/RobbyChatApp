@@ -120,8 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(statusIntent);
         finish();
     }
-
-
+    
     //Change Profile Image
     public void ci(View view) {
         CropImage.activity()
@@ -165,7 +164,6 @@ public class SettingsActivity extends AppCompatActivity {
                                     Toast.makeText(SettingsActivity.this,"Image added Successfully....",Toast.LENGTH_SHORT).show();
                                 }
                             });
-
                         } else {
                             Toast.makeText(SettingsActivity.this, "Error in uploading", Toast.LENGTH_LONG).show();
                         }
