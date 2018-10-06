@@ -84,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 //Bitmap code image uploading remaining
+        //link= https://firebase.google.com/docs/storage/android/upload-files
 
 
 
