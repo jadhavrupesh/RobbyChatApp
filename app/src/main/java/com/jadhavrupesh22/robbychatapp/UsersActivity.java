@@ -1,5 +1,6 @@
 package com.jadhavrupesh22.robbychatapp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -70,6 +72,19 @@ public class UsersActivity extends AppCompatActivity {
                 holder.mName.setText(model.getName());
                 holder.mStatus.setText(model.getStatus());
                 Picasso.get().load(model.getThumb_image()).into(holder.mDisplayImage);
+
+                final String user_Id=getRef(position).getKey();
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent profileIntent=new Intent(UsersActivity.this,ProfileActivity.class);
+                        profileIntent.putExtra("user_Id",user_Id);
+                        startActivity(profileIntent);
+
+
+                    }
+                });
             }
 
             @NonNull
