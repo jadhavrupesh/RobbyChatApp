@@ -69,7 +69,7 @@ public class UsersActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final UsersViewHolder holder, int position, @NonNull Users model) {
                 holder.mName.setText(model.getName());
                 holder.mStatus.setText(model.getStatus());
-                Picasso.get().load(model.getImage()).into(holder.mDisplayImage);
+                Picasso.get().load(model.getThumb_image()).into(holder.mDisplayImage);
             }
 
             @NonNull
