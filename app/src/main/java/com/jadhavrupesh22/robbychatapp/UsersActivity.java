@@ -35,6 +35,7 @@ public class UsersActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +82,9 @@ public class UsersActivity extends AppCompatActivity {
                         Intent profileIntent=new Intent(UsersActivity.this,ProfileActivity.class);
                         profileIntent.putExtra("user_Id",user_Id);
                         startActivity(profileIntent);
-
-
                     }
                 });
             }
-
             @NonNull
             @Override
             public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
