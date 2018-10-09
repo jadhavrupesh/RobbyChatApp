@@ -45,14 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Tabs
         mViewPager=(ViewPager)findViewById(R.id.main_tabPager );
-
         mSectionsPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTablayout=(TabLayout)findViewById(R.id.main_tabs);
         mTablayout.setupWithViewPager(mViewPager);
-
     }
-
     @Override
     public void onStart() {
         super.onStart();
