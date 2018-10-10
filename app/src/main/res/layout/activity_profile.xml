@@ -39,30 +39,29 @@
         android:id="@+id/profile_totalFriends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/profile_send_req_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
         android:text="Total Friends" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/profile_send_req_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
         android:layout_marginBottom="99dp"
         android:backgroundTint="#ed3833"
         android:onClick="sendRequest"
         android:text="Send Friend Request"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:textSize="15dp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="match_parent"
         android:layout_height="166dp"
         android:layout_alignParentStart="true"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
@@ -75,7 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
-
     <Button
         android:id="@+id/profile_decline_Friend_requenst"
         android:layout_width="wrap_content"
