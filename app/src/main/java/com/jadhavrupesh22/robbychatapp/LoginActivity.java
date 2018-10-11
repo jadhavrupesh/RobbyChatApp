@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout mLoginEmail;
     private TextInputLayout mLoginPassword;
-
     //Firebase
     private FirebaseAuth mAuth;
 
