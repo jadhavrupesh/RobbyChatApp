@@ -29,7 +29,7 @@ import java.util.Date;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
-    private Button mProfileSendReqBtn;
+    private Button mProfileSendReqBtn,mDeclineBtn;
     private TextView mProfileName, mProfileStatus, mProfileFriendCount;
     private DatabaseReference mUserDatabase;
     private DatabaseReference mFriendDatabase;
