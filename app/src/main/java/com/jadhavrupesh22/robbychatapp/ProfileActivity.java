@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser mCurrent_user;
     private String user_Id;
 
+    private DatabaseReference mNotificationDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_Id);
+        mNotificationDatabase=FirebaseDatabase.getInstance().getReference().child("notification");
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
         mCurrent_state = "not_friends";
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
@@ -64,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileName = (TextView) findViewById(R.id.profile_displayName);
         mProfileStatus = (TextView) findViewById(R.id.profile_status);
         mProfileFriendCount = (TextView) findViewById(R.id.profile_totalFriends);
+
+
 
         mDeclineBtn.setVisibility(View.INVISIBLE);
         mDeclineBtn.setEnabled(false);
@@ -154,13 +160,26 @@ public class ProfileActivity extends AppCompatActivity {
                                         .setValue("received").addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        mCurrent_state = "req_sent";
-                                        mProfileSendReqBtn.setText("Cancle Friend Requenst");
 
-                                        mDeclineBtn.setVisibility(View.INVISIBLE);
-                                        mDeclineBtn.setEnabled(false);
+                                        HashMap<String , String> notificationData=new HashMap<>();
+                                        notificationData.put("from",mCurrent_user.getUid());
+                                        notificationData.put("type","request");
 
-                                        Toast.makeText(ProfileActivity.this, "Sending Request Successfully Done.", Toast.LENGTH_LONG).show();
+
+                                        mNotificationDatabase.child(user_Id).setValue(notificationData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                mCurrent_state = "req_sent";
+                                                mProfileSendReqBtn.setText("Cancle Friend Requenst");
+
+                                                mDeclineBtn.setVisibility(View.INVISIBLE);
+                                                mDeclineBtn.setEnabled(false);
+                                            }
+                                        });
+
+
+
+                                        //Toast.makeText(ProfileActivity.this, "Sending Request Successfully Done.", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             } else {
