@@ -222,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity {
                                                                 }
                                                             });
 
-                                                            Toast.makeText(ProfileActivity.this, "Request is Canceled.", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(ProfileActivity.this, "Request is Accepted.", Toast.LENGTH_LONG).show();
                                                         }
                                                     });
 
