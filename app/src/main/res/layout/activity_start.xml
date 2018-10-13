@@ -88,8 +88,7 @@
         android:background="@drawable/rectangle"
         android:backgroundTint="#3237a2"
         android:onClick="srb"
-
-        android:text="Sign In         >"
+        android:text="Sign up         >"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <Button
@@ -102,7 +101,7 @@
         android:background="@drawable/rectangle"
         android:backgroundTint="#3237a2"
         android:onClick="login"
-        android:text="Sign up         >"
+        android:text="Sign In         >"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <ImageView
