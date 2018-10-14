@@ -48,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-
         //Toolbar
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.register_toolbar);
         setSupportActionBar(mToolbar);
@@ -57,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
-        mUserDatabase=FirebaseDatabase.getInstance().getReference().child("Users");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mDisplayName = (TextInputLayout) findViewById(R.id.reg_display_name);
         mEmail = (TextInputLayout) findViewById(R.id.login_email);
@@ -109,13 +108,12 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
 
-                                String current_user_id=mAuth.getCurrentUser().getUid();
-                                String deviceToken=FirebaseInstanceId.getInstance().getToken();
+                                String current_user_id = mAuth.getCurrentUser().getUid();
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
                                 mUserDatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
                                         mRegProgress.dismiss();
                                         Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
                                         startActivity(mainIntent);
