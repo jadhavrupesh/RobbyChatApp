@@ -104,8 +104,17 @@ public class FriendsFragment extends Fragment {
                         final String userName = dataSnapshot.child("name").getValue().toString();
                         String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
+                        if (dataSnapshot.hasChild("online")){
+
+                            Boolean userOnline= (Boolean) dataSnapshot.child("online").getValue();
+                            friendsViewHolder.setUserOnline(userOnline);
+                        }
+
+
                         friendsViewHolder.setName(userName);
                         friendsViewHolder.setUserImage(userThumb,getContext());
+
+
 
                     }
 
@@ -114,11 +123,6 @@ public class FriendsFragment extends Fragment {
 
                     }
                 });
-
-
-
-
-
 
             }
         };
@@ -156,6 +160,18 @@ public class FriendsFragment extends Fragment {
 
             CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
             Picasso.get().load(thumb_image).into(userImageView);
+
+        }
+
+        public void setUserOnline(Boolean online_status){
+
+            ImageView userOnlineView=(ImageView)mView.findViewById(R.id.user_single_online_icon);
+            if (online_status.equals(true)){
+                userOnlineView.setVisibility(View.VISIBLE);
+            }
+            else{
+                userOnlineView.setVisibility(View.INVISIBLE);
+            }
 
         }
 
