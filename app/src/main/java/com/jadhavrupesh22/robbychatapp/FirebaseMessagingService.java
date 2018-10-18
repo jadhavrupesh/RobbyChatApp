@@ -1,4 +1,7 @@
 package com.jadhavrupesh22.robbychatapp;
 
-public class FirebaseMessagingService  {
+public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
+
+
+
 }
