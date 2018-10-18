@@ -67,8 +67,6 @@ public class FriendsFragment extends Fragment {
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mUsersDatabase.keepSynced(true);
         //mDatabase=FirebaseDatabase.getInstance();
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mFriendsList.setHasFixedSize(true);
         mFriendsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Inflate the layout for this fragment
@@ -98,42 +96,29 @@ public class FriendsFragment extends Fragment {
             protected void onBindViewHolder(@NonNull final FriendsViewHolder friendsViewHolder, int i, @NonNull Friends friends) {
 
                 friendsViewHolder.setDate(friends.getDate());
-//                friendsViewHolder.mStatus.setText(model.getStatus());
-//                Picasso.get().load(model.getThumb_image()).into(holder.mDisplayImage);
 
-                final String user_Id=getRef(i).getKey();
+                final String list_user_id = getRef(i).getKey();
+                mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final String userName = dataSnapshot.child("name").getValue().toString();
+                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
-//                friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent profileIntent=new Intent(UsersActivity.this,ProfileActivity.class);
-//                        profileIntent.putExtra("user_Id",user_Id);
-//                        startActivity(profileIntent);
-//                    }
-//                });
+                        friendsViewHolder.setName(userName);
 
-//                friendsViewHolder.setDate(friends.getDate());
-//
-//                final String list_user_id = getRef(i).getKey();
-//                mUserDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        final String userName = dataSnapshot.child("name").getValue().toString();
-//                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
-//
-//                        friendsViewHolder.setDate(userName);
-//
-//
-//
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
 
             }
         };
@@ -160,19 +145,19 @@ public class FriendsFragment extends Fragment {
 
         }
 
-//        public void setName(String name){
-//
-//            TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
-//            userNameView.setText(name);
-//
-//        }
-//
-//        public void setUserImage(String thumb_image, Context ctx){
-//
-//            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
-//            Picasso.get().load(thumb_image).into(userImageView);
-//
-//        }
+        public void setName(String name){
+
+            TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
+            userNameView.setText(name);
+
+        }
+
+        public void setUserImage(String thumb_image, Context ctx){
+
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
+            Picasso.get().load(thumb_image).into(userImageView);
+
+        }
 
 
     }
