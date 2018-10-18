@@ -112,9 +112,14 @@ public class ChatActivity extends AppCompatActivity {
 
                 }
                 else {
-                    mLastSeenView.setText(online);
-                }
+                    GetTimeAgo getTimeAgo = new GetTimeAgo();
 
+                    long lastTime = Long.parseLong(online);
+
+                    String lastSeenTime = getTimeAgo.getTimeAgo(lastTime, getApplicationContext());
+
+                    mLastSeenView.setText(lastSeenTime);
+                }
 
             }
 
