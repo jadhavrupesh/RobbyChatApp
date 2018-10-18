@@ -105,6 +105,8 @@ public class FriendsFragment extends Fragment {
                         String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
                         friendsViewHolder.setName(userName);
+                        friendsViewHolder.setUserImage(userThumb,getContext());
+
 
 
                     }
