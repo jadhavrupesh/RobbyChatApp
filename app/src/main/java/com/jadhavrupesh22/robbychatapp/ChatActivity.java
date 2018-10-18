@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -20,8 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -129,20 +134,42 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-//        mAdapter = new MessageAdapter(messagesList);
+        mRootRef.child("chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChild(mChatUser)){
 
-        mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
-        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.message_swipe_layout);
-        mLinearLayout = new LinearLayoutManager(this);
+                    Map chatAddMap = new HashMap();
+                    chatAddMap.put("seen", false);
+                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
-        mMessagesList.setHasFixedSize(true);
-        mMessagesList.setLayoutManager(mLinearLayout);
+                    Map chatUserMap = new HashMap();
+                    chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
+                    chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId, chatAddMap);
 
-//        mMessagesList.setAdapter(mAdapter);
+                    mRootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
+                            if(databaseError != null){
 
+                                Log.d("CHAT_LOG", databaseError.getMessage().toString());
 
+                            }
 
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
+
+
 }
