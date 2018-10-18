@@ -1,12 +1,21 @@
 package com.jadhavrupesh22.robbychatapp;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ChatActivity extends AppCompatActivity {
     private String mChatUser;
     private Toolbar mChatToolbar;
+
+    private DatabaseReference mRootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,9 +24,14 @@ public class ChatActivity extends AppCompatActivity {
         mChatToolbar=(Toolbar)findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mRootRef=FirebaseDatabase.getInstance().getReference();
 
         mChatUser=getIntent().getStringExtra("user_id");
-        getSupportActionBar().setTitle(mChatUser);
+        String userName=getIntent().getStringExtra("user_name");
+        getSupportActionBar().setTitle(userName);
+
+
+
 
 
     }
