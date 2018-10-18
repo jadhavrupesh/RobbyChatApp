@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     public void Logout(MenuItem item) {
         FirebaseAuth.getInstance().signOut();
         sendToStart();
+        mUserRef.child("online").setValue(false);
 
     }
 

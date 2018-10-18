@@ -137,14 +137,14 @@ public class FriendsFragment extends Fragment {
 
                                         }
 //
-//                                        if(i == 1){
-//
-//                                            Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-//                                            chatIntent.putExtra("user_id", list_user_id);
-//                                            chatIntent.putExtra("user_name", userName);
-//                                            startActivity(chatIntent);
-//
-//                                        }
+                                        if(i == 1){
+
+                                            Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                            chatIntent.putExtra("user_id", list_user_id);
+                                            chatIntent.putExtra("user_name", userName);
+                                            startActivity(chatIntent);
+
+                                        }
 
                                     }
                                 });
