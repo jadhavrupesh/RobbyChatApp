@@ -322,7 +322,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // ------------ UNFRIENDS ---------
+                // ------------ Decline_FRIENDS ---------
 
                 if(mCurrent_state.equals("req_received")){
 
