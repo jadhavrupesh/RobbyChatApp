@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,10 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView mUsersList;
     private DatabaseReference mUserDatabase;
 
+    //Firebase
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
+
 
 
     @Override
@@ -46,6 +51,10 @@ public class UsersActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("All Users");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Firebase
+        mAuth = FirebaseAuth.getInstance();
+        mUserRef=FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
         mUsersList = (RecyclerView) findViewById(R.id.users_list);
         mUsersList.setHasFixedSize(true);
         mUsersList.setLayoutManager(new LinearLayoutManager(this));
@@ -56,9 +65,13 @@ public class UsersActivity extends AppCompatActivity {
     }
 
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
+
 
         FirebaseRecyclerOptions<Users> options =
                 new FirebaseRecyclerOptions.Builder<Users>()

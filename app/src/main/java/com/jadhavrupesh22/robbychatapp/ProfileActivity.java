@@ -43,9 +43,11 @@ public class ProfileActivity extends AppCompatActivity {
     private String mCurrent_state;
     private FirebaseUser mCurrent_user;
     private String user_Id;
+    private FirebaseAuth mAuth;
 
     private DatabaseReference mNotificationDatabase;
     private DatabaseReference mRootRef;
+    private DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Please wait while loading user Data");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
-
+        mAuth = FirebaseAuth.getInstance();
+        mUserRef=FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_Id);
@@ -364,6 +367,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+            mUserRef.child("online").setValue(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue(false);
     }
 
 }

@@ -57,6 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
     private CircleImageView mDisplayImage;
     private TextView mName;
     private TextView mStatus;
+    //Firebase
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
 
     //Store Image in FirebaseDatabase
     private StorageReference mImageStorage;
@@ -77,6 +80,11 @@ public class SettingsActivity extends AppCompatActivity {
         mStatus = (TextView) findViewById(R.id.settings_status);
         mImageStorage = FirebaseStorage.getInstance().getReference();
         thumb_imageRef = FirebaseStorage.getInstance().getReference().child("thumb_images");
+
+
+        //Firebase
+        mAuth = FirebaseAuth.getInstance();
+        mUserRef=FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
 
         //Toolbar
@@ -132,6 +140,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     //Move To Status Activity and set Status
     public void cs(View view) {
@@ -249,6 +259,5 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
     }
-
 
 }

@@ -15,12 +15,18 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private SectionPagerAdapter mSectionsPagerAdapter;
 
+
+
     //Firebase
     private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
 
     //Toolbar
     private android.support.v7.widget.Toolbar mToolbar;
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
+        mUserRef=FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
         //Tabs
         mViewPager=(ViewPager)findViewById(R.id.main_tabPager );
@@ -48,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTablayout=(TabLayout)findViewById(R.id.main_tabs);
         mTablayout.setupWithViewPager(mViewPager);
+
+
+
     }
     @Override
     public void onStart() {
@@ -56,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             sendToStart();
+        }else {
+            mUserRef.child("online").setValue(true);
         }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue(false);
     }
 
     private void sendToStart() {

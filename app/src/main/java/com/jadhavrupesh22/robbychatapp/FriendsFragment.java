@@ -107,8 +107,6 @@ public class FriendsFragment extends Fragment {
                         friendsViewHolder.setName(userName);
                         friendsViewHolder.setUserImage(userThumb,getContext());
 
-
-
                     }
 
                     @Override
