@@ -106,7 +106,7 @@ public class FriendsFragment extends Fragment {
 
                         if (dataSnapshot.hasChild("online")){
 
-                            Boolean userOnline= (Boolean) dataSnapshot.child("online").getValue();
+                            String userOnline=  dataSnapshot.child("online").getValue().toString();
                             friendsViewHolder.setUserOnline(userOnline);
                         }
 
@@ -203,10 +203,10 @@ public class FriendsFragment extends Fragment {
 
         }
 
-        public void setUserOnline(Boolean online_status){
+        public void setUserOnline(String online_status){
 
             ImageView userOnlineView=(ImageView)mView.findViewById(R.id.user_single_online_icon);
-            if (online_status.equals(true)){
+            if (online_status.equals("true")){
                 userOnlineView.setVisibility(View.VISIBLE);
             }
             else{
