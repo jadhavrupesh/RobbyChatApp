@@ -45,6 +45,7 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
         public CircleImageView profileImage;
         public TextView displayName;
         public ImageView messageImage;
+        public TextView Time;
 
         public MessageViewHolder(View view) {
             super(view);
@@ -52,7 +53,9 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
             messageText = (TextView) view.findViewById(R.id.message_text_layout);
             profileImage = (CircleImageView) view.findViewById(R.id.message_profile_layout);
             displayName = (TextView) view.findViewById(R.id.name_text_layout);
+            Time = (TextView) view.findViewById(R.id.time_text_layout);
             messageImage = (ImageView) view.findViewById(R.id.message_image_layout);
+
 
         }
     }
@@ -64,6 +67,7 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
 
         String from_user = c.getFrom();
         String message_type = c.getType();
+        long time=c.getTime();
 
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
@@ -74,8 +78,8 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
 
                 String name = dataSnapshot.child("name").getValue().toString();
                 String image = dataSnapshot.child("thumb_image").getValue().toString();
-
                 viewHolder.displayName.setText(name);
+
 
                 Picasso.get().load(image).placeholder(R.drawable.pp).into(viewHolder.profileImage);
 
@@ -91,7 +95,9 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
         if(message_type.equals("text")) {
 
             viewHolder.messageText.setText(c.getMessage());
+
             viewHolder.messageImage.setVisibility(View.INVISIBLE);
+
 
 
         } else {
