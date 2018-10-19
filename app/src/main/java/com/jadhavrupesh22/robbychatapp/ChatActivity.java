@@ -29,6 +29,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatUser = getIntent().getStringExtra("user_id");
         String userName = getIntent().getStringExtra("user_name");
 
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
 
@@ -129,6 +131,7 @@ public class ChatActivity extends AppCompatActivity {
         loadMessages();
 
         mTitleView.setText(userName);
+
         mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -136,6 +139,7 @@ public class ChatActivity extends AppCompatActivity {
                 String online=dataSnapshot.child("online").getValue().toString();
                 String image=dataSnapshot.child("image").getValue().toString();
 
+                Picasso.get().load(image).placeholder(R.drawable.pp).into(mProfileImage);
                 if (online.equals("true")){
 
                     mLastSeenView.setText("online");
