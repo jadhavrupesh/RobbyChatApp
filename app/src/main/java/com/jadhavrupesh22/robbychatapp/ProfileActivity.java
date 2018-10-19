@@ -43,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private String mCurrent_state;
     private FirebaseUser mCurrent_user;
-    private String user_Id;
     private FirebaseAuth mAuth;
 
     private DatabaseReference mNotificationDatabase;
@@ -54,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        user_Id = getIntent().getStringExtra("user_Id");
+        final String user_Id = getIntent().getStringExtra("user_Id");
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle("Loading User Data");
         mProgressDialog.setMessage("Please wait while loading user Data");
@@ -367,21 +366,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-            mUserRef.child("online").setValue("true");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
     }
 
 }
