@@ -34,26 +34,31 @@ public class RobbyChat extends Application {
 
 
         mAuth = FirebaseAuth.getInstance();
-        mUserDatabase = FirebaseDatabase.getInstance()
-                .getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
-        mUserDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if(mAuth.getCurrentUser() != null) {
 
-                if (dataSnapshot !=null) {
+            mUserDatabase = FirebaseDatabase.getInstance()
+                    .getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
-                    mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+            mUserDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot != null) {
+
+                        mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+
+                    }
 
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
+        }
 
     }
 
