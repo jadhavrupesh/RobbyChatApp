@@ -37,17 +37,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ChatsFragment extends Fragment {
 
-    private RecyclerView mConvList;
+    private RecyclerView mFriendsList;
 
-    private DatabaseReference mConvDatabase;
-    private DatabaseReference mMessageDatabase;
+    private DatabaseReference mFriendsDatabase;
+    private DatabaseReference mFriendsDatabases;
     private DatabaseReference mUsersDatabase;
+    private DatabaseReference mLastMsg;
 
     private FirebaseAuth mAuth;
 
     private String mCurrent_user_id;
 
     private View mMainView;
+    private DatabaseReference mUserDatabase;
 
 
 
@@ -60,27 +62,24 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
+        mMainView = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        mConvList = (RecyclerView) mMainView.findViewById(R.id.conv_list);
+        mFriendsList = (RecyclerView) mMainView.findViewById(R.id.friends_list);
         mAuth = FirebaseAuth.getInstance();
-
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
+        mFriendsDatabases = FirebaseDatabase.getInstance().getReference().child("Friends").child(mCurrent_user_id);
+        mFriendsDatabases.keepSynced(true);
 
-        mConvDatabase.keepSynced(true);
+
+        mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
+        mFriendsDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
         mUsersDatabase.keepSynced(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-
-        mConvList.setHasFixedSize(true);
-        mConvList.setLayoutManager(linearLayoutManager);
-
+        mLastMsg = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
+        mLastMsg.keepSynced(true);
+        //mDatabase=FirebaseDatabase.getInstance();
+        mFriendsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Inflate the layout for this fragment
         return mMainView;
@@ -92,110 +91,69 @@ public class ChatsFragment extends Fragment {
         super.onStart();
 
 
-        FirebaseRecyclerOptions<Conv> options =
-                new FirebaseRecyclerOptions.Builder<Conv>()
-                        .setQuery(mConvDatabase,Conv.class)
+        FirebaseRecyclerOptions<Friends> options =
+                new FirebaseRecyclerOptions.Builder<Friends>()
+                        .setQuery(mFriendsDatabase,Friends.class)
                         .build();
 
-        FirebaseRecyclerAdapter<Conv,ConvViewHolder>adapter=new FirebaseRecyclerAdapter<Conv, ConvViewHolder>(options) {
+        FirebaseRecyclerAdapter<Friends,FriendsFragment.FriendsViewHolder> adapter= new FirebaseRecyclerAdapter<Friends,FriendsFragment.FriendsViewHolder>(options){
+            @NonNull
             @Override
-            protected void onBindViewHolder(@NonNull final ConvViewHolder holder, int position, @NonNull  final Conv conv) {
+            public FriendsFragment.FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_single_layout, parent, false);
+                FriendsFragment.FriendsViewHolder friendsViewHolder=new FriendsFragment.FriendsViewHolder(view);
+                return friendsViewHolder;
+            }
 
-                final String list_user_id = getRef(position).getKey();
+            @Override
+            protected void onBindViewHolder(@NonNull final FriendsFragment.FriendsViewHolder friendsViewHolder, int i, @NonNull Friends friends) {
 
-                Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
+                friendsViewHolder.setDate(friends.getDate());
 
-                lastMessageQuery.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                        String data = dataSnapshot.child("message").getValue().toString();
-                        holder.setMessage(data, conv.isSeen());
-
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-//
-
-
-
-
+                final String list_user_id = getRef(i).getKey();
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        ConvViewHolder convViewHolder;
-
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         final String userName = dataSnapshot.child("name").getValue().toString();
                         String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
-                        if(dataSnapshot.hasChild("online")) {
 
-                            String userOnline = dataSnapshot.child("online").getValue().toString();
-//                            ConvViewHolder.setUserOnline(userOnline);
+                        if (dataSnapshot.hasChild("online")){
 
+                            String userOnline=  dataSnapshot.child("online").getValue().toString();
+                            friendsViewHolder.setUserOnline(userOnline);
                         }
 
-//
-//                        ConvViewHolder.setName(userName);
-//                        ConvViewHolder.setUserImage(userThumb, getContext());
-//
-//                        ConvViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//
-//
-//                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-//                                chatIntent.putExtra("user_id", list_user_id);
-//                                chatIntent.putExtra("user_name", userName);
-//                                startActivity(chatIntent);
-//
-//                            }
-//                        });
+
+                        friendsViewHolder.setName(userName);
+                        friendsViewHolder.setUserImage(userThumb,getContext());
+
+
+                        friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                chatIntent.putExtra("user_id", list_user_id);
+                                chatIntent.putExtra("user_name", userName);
+                                startActivity(chatIntent);
+
+                            }
+                        });
+
 
 
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
 
-
-            }
-
-            @NonNull
-            @Override
-            public ConvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_single_layout, parent, false);
-                ChatsFragment.ConvViewHolder convViewHolder=new ChatsFragment.ConvViewHolder(view);
-                return convViewHolder;
             }
         };
-
-         mConvList.setAdapter(adapter);
+        mFriendsList.setAdapter(adapter);
         adapter.startListening();
 
 
@@ -212,16 +170,10 @@ public class ChatsFragment extends Fragment {
 
         }
 
-        public void setMessage(String message, boolean isSeen){
+        public void setDate(String date){
 
             TextView userStatusView = (TextView) mView.findViewById(R.id.user_single_status);
-            userStatusView.setText(message);
-
-            if(!isSeen){
-                userStatusView.setTypeface(userStatusView.getTypeface(), Typeface.BOLD);
-            } else {
-                userStatusView.setTypeface(userStatusView.getTypeface(), Typeface.NORMAL);
-            }
+            userStatusView.setText(date);
 
         }
 
@@ -235,25 +187,18 @@ public class ChatsFragment extends Fragment {
         public void setUserImage(String thumb_image, Context ctx){
 
             CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
-
-            Picasso.get().load(thumb_image).placeholder(R.drawable.pp).into(userImageView);
-
-
+            Picasso.get().load(thumb_image).into(userImageView);
 
         }
 
-        public void setUserOnline(String online_status) {
+        public void setUserOnline(String online_status){
 
-            ImageView userOnlineView = (ImageView) mView.findViewById(R.id.user_single_online_icon);
-
-            if(online_status.equals("true")){
-
+            ImageView userOnlineView=(ImageView)mView.findViewById(R.id.user_single_online_icon);
+            if (online_status.equals("true")){
                 userOnlineView.setVisibility(View.VISIBLE);
-
-            } else {
-
+            }
+            else{
                 userOnlineView.setVisibility(View.INVISIBLE);
-
             }
 
         }

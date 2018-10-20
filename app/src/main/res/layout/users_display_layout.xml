@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_display_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/pp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/user_display_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user_display_image"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/user_display_image"
+        android:text="Display Name"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/user_display_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/user_display_name"
+        android:layout_alignBottom="@+id/user_display_image"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="12dp"
+        android:text="Status" />
+
+
+    <Button
+        android:id="@+id/users_display_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_display_name"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/users_display_decline"
+        android:layout_toEndOf="@+id/user_display_status"
+        android:backgroundTint="#06CF51"
+        android:text="Accept" />
+
+    <Button
+        android:id="@+id/users_display_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_display_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#FA420D"
+        android:text="Decline" />
+
+
+</RelativeLayout>

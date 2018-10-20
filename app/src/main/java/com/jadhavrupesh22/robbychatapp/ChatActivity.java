@@ -205,6 +205,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 sendMessage();
 
             }
