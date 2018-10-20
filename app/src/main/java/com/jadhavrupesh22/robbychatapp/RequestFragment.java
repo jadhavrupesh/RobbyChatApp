@@ -156,7 +156,6 @@ public class RequestFragment extends Fragment {
             AcceptButton=itemView.findViewById(R.id.users_display_accept);
             CancelButton=itemView.findViewById(R.id.users_display_decline);
 
-
         }
 
         public void setRequest_type(String date){
