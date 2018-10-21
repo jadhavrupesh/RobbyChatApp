@@ -288,6 +288,9 @@ public class ProfileActivity extends AppCompatActivity {
                     Map unfriendMap = new HashMap();
                     unfriendMap.put("Friends/" + mCurrent_user.getUid() + "/" + user_Id, null);
                     unfriendMap.put("Friends/" + user_Id + "/" + mCurrent_user.getUid(), null);
+                    unfriendMap.put("Chat/" + mCurrent_user.getUid() + "/" + user_Id, null);
+                    unfriendMap.put("Chat/" + user_Id + "/" + mCurrent_user.getUid(), null);
+
 
                     mRootRef.updateChildren(unfriendMap, new DatabaseReference.CompletionListener() {
                         @Override
