@@ -45,6 +45,7 @@
         android:layout_marginStart="29dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="20dp"
+        android:textColor="#fff"
         android:layout_toStartOf="@+id/users_display_decline"
         android:layout_toEndOf="@+id/user_display_status"
         android:backgroundTint="#06CF51"
@@ -58,6 +59,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="15dp"
         android:backgroundTint="#FA420D"
+        android:textColor="#fff"
         android:text="Decline" />
 
 
