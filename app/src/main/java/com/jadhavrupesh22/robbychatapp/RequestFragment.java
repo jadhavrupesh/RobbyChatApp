@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -32,7 +34,7 @@ public class RequestFragment extends Fragment {
 
     private View RequestFragmentView;
     private RecyclerView myRequestList;
-    private DatabaseReference ChatRequestRef,UsersRef;
+    private DatabaseReference ChatRequestRef,UsersRef,FriendsId;
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
 
@@ -82,7 +84,10 @@ public class RequestFragment extends Fragment {
                                 if (dataSnapshot.exists()){
 
                                     String type=dataSnapshot.getValue().toString();
+
                                     if (type.equals("received")){
+
+
 
                                         UsersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
                                             @Override
