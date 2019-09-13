@@ -3,9 +3,9 @@ package com.jadhavrupesh22.robbychatapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Toolbar
-    private android.support.v7.widget.Toolbar mToolbar;
+    private androidx.appcompat.widget.Toolbar mToolbar;
 
     private TextInputLayout mDisplayName;
     private TextInputLayout mEmail;
@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         //Toolbar
-        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.register_toolbar);
+        mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.register_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Registration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -3,14 +3,12 @@ package com.jadhavrupesh22.robbychatapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class StatusActivity extends AppCompatActivity {
-    private android.support.v7.widget.Toolbar mToolbar;
+    private androidx.appcompat.widget.Toolbar mToolbar;
     private TextInputLayout mStatus;
     private DatabaseReference mStatusDatabase;
     private FirebaseUser mCurrentUser;
@@ -45,7 +43,7 @@ public class StatusActivity extends AppCompatActivity {
         mStatusDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(Current_uid);
 
 
-        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.status_appBars);
+        mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.status_appBars);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Account Status");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

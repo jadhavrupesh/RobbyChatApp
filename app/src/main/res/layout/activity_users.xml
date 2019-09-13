@@ -9,7 +9,7 @@
 
     <include layout="@layout/app_bar_layout" android:id="@+id/users_appBas" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/users_list"
         android:layout_width="match_parent"
         android:layout_height="604dp"
@@ -19,7 +19,7 @@
         android:layout_marginTop="55dp">
 
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </RelativeLayout>

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -35,7 +35,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
@@ -51,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private static final int GALLERY_PICK = 1;
 
-    private android.support.v7.widget.Toolbar mToolbar;
+    private androidx.appcompat.widget.Toolbar mToolbar;
 
     //Android Layout
     private CircleImageView mDisplayImage;
@@ -88,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         //Toolbar
-        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.setting_app_bar);
+        mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.setting_app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Setting");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
