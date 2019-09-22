@@ -111,6 +111,7 @@ public class RequestFragment extends Fragment {
                             }
                         });
 
+
                         holder.AcceptButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -212,7 +213,6 @@ public class RequestFragment extends Fragment {
             mView = itemView;
 
             userName = itemView.findViewById(R.id.user_display_name);
-            usersStatus = itemView.findViewById(R.id.user_display_status);
             profileImage = itemView.findViewById(R.id.user_display_image);
             AcceptButton = itemView.findViewById(R.id.users_display_accept);
             CancelButton = itemView.findViewById(R.id.users_display_decline);

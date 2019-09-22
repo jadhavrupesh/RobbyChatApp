@@ -35,7 +35,7 @@
         android:layout_alignBottom="@+id/user_display_image"
         android:layout_marginStart="3dp"
         android:layout_marginBottom="12dp"
-        android:text="Ststus" />
+        android:text="" />
 
 
     <Button
